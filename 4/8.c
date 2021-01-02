@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <math.h>
 int len(int a)
 {
     int cnt = 0;
@@ -13,10 +13,7 @@ int len(int a)
 
 int is_prime(int a)
 {
-    if(a == 1)
-        return 0;
-    int sq_rt = a / 2 + 1;
-    int flag = 1;
+    int sq_rt = sqrt(a)+1;
     for (int i = 2; i < sq_rt; i++)
     {
         if (a % i == 0)
@@ -24,7 +21,7 @@ int is_prime(int a)
             return 0;
         }
     }
-    return flag;
+    return 1;
 }
 
 int power(int a, int n)
@@ -37,10 +34,9 @@ int power(int a, int n)
     return ans;
 }
 
-int check(int a)
+int check(int a , int tool)
 {
     int rem = 0;
-    int tool = len(a);
     for (int i = 0; i < tool; i++)
     {
         rem = a % 10;
@@ -57,10 +53,12 @@ int main()
 {
     int a;
     int i = 2;
+    int tool;
     scanf("%d", &a);
     while (a)
-    {
-        if (check(i))
+    {   
+        tool = len(i);
+        if (check(i,tool))
             a--;
         i++;
     }
