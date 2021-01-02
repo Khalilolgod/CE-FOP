@@ -1,35 +1,41 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 int main()
 {
-    int a[10243],n,counter,temp,i;
-    a[0]=1;
-    counter=0;
-    printf("Enter the number to Find Factorial: ");
-    scanf("%d",&n);
-    for(; n>=2; n--)
+    int n;
+    int tar;
+    scanf("%d %d",&n , &tar);
+
+    char result[1024] = {1};
+    int len_result = 1;
+    int tmp_mul = 0;
+    int mul = 0;
+    for (int i = 1; i <= n; i++)
     {
-        temp=0;
-        for(i=0; i<=counter; i++)
+        for (int j = 0; j < len_result; j++)
         {
-            temp=(a[i]*n)+temp;
-            a[i]=temp%10;
-            temp=temp/10;
+            mul = i * result[j] + tmp_mul;
+            result[j] = mul % 10;
+            tmp_mul = mul / 10;
         }
-        while(temp>0)
+        if (tmp_mul)
         {
-            a[++counter]=temp%10;
-            temp=temp/10;
+            while (tmp_mul)
+            {
+                result[len_result] = tmp_mul % 10;
+                tmp_mul /= 10;
+                len_result++;
+            }
+            tmp_mul = 0;
         }
     }
-    for (int f = 0 ; f < 10 ; f++)
+    int cntr = 0;
+    for (int k = 0; k < len_result; k++)
     {
-        int cntr = 0;
-        for (int k = 0; k <= counter; k++)
-        {
-            if (a[k] == f)
-                cntr++;
-        }
-        printf("%d,%d \t",f,cntr);
+        if (result[k] == tar)
+            cntr++;
     }
-    return 0;
+    printf("%d",cntr);
+    
 }
